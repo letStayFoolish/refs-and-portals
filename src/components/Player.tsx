@@ -1,5 +1,10 @@
 import React, { useRef, useState } from "react";
 
+/**
+ * The key difference between state and refs, whenever the ref changes component function des not re-executed.
+ * And for a state, when updating state (with set method), component will be re-executed!
+ * */
+
 const Player: React.FC = () => {
   const [enteredPlayerName, setEnteredPlayerName] = useState<string | null>(
     null,
