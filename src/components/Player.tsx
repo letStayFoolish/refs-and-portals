@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 
 /**
- * The key difference between state and refs, whenever the ref changes component function des not re-executed.
+ * The key difference between state and refs, whenever the ref changes component function doesn't re-execute.
  * And for a state, when updating state (with set method), component will be re-executed!
  * */
 
