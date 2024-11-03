@@ -13,12 +13,13 @@ const TimerChallenge: React.FC<Props> = ({ title, targetTime }) => {
   const [timerExpired, setTimerExpired] = useState(false);
 
   const timerRef = useRef<number>();
+  const dialogRef = useRef<HTMLDialogElement>(null);
 
   const handleStart = () => {
     timerRef.current = setTimeout(() => {
       setTimerExpired(true);
+      dialogRef.current?.showModal();
     }, targetTime * 1000);
-
     setTimerStarted(true);
   };
 
@@ -28,7 +29,8 @@ const TimerChallenge: React.FC<Props> = ({ title, targetTime }) => {
 
   return (
     <>
-      {timerExpired && <ResultModal result="lost" targetTime={targetTime} />}
+      <ResultModal ref={dialogRef} result="lost" targetTime={targetTime} />
+
       <section className="challenge">
         <h2>{title}</h2>
         {timerExpired && <p>You lost!</p>}

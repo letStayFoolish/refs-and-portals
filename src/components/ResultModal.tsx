@@ -1,13 +1,19 @@
-import React from "react";
+import { ForwardedRef, forwardRef } from "react";
 
 type Props = {
   result: "won" | "lost";
   targetTime: number;
 };
 
-const ResultModal: React.FC<Props> = ({ result, targetTime }) => {
+/**
+ * Forwarding ref. The first argument is "props" and the second one is "ref".
+ * */
+const ResultModal = forwardRef(function ResultModal(
+  { result, targetTime }: Props,
+  ref: ForwardedRef<HTMLDialogElement>,
+) {
   return (
-    <dialog className="result-modal" open>
+    <dialog ref={ref} className="result-modal">
       <h2>You {result}</h2>
       <p>
         The target time was <strong>{targetTime}</strong> seconds.
@@ -20,6 +26,6 @@ const ResultModal: React.FC<Props> = ({ result, targetTime }) => {
       </form>
     </dialog>
   );
-};
+});
 
 export default ResultModal;
