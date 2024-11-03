@@ -13,12 +13,14 @@ const TimerChallenge: React.FC<Props> = ({ title, targetTime }) => {
   const [timerExpired, setTimerExpired] = useState(false);
 
   const timerRef = useRef<number>();
-  const dialogRef = useRef<HTMLDialogElement>(null);
+  const dialogRef = useRef<HTMLDialogElement & { openMyModal: () => void }>(
+    null,
+  );
 
   const handleStart = () => {
     timerRef.current = setTimeout(() => {
       setTimerExpired(true);
-      dialogRef.current?.showModal();
+      dialogRef.current?.openMyModal();
     }, targetTime * 1000);
     setTimerStarted(true);
   };

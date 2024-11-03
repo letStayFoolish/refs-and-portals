@@ -1,4 +1,4 @@
-import { ForwardedRef, forwardRef } from "react";
+import { ForwardedRef, forwardRef, useImperativeHandle, useRef } from "react";
 
 type Props = {
   result: "won" | "lost";
@@ -6,14 +6,25 @@ type Props = {
 };
 
 /**
- * Forwarding ref. The first argument is "props" and the second one is "ref".
+ * Forwarding ref - The first argument is "props" and the second one is "ref".
  * */
 const ResultModal = forwardRef(function ResultModal(
-  { result, targetTime }: Props,
+  props: Props,
   ref: ForwardedRef<HTMLDialogElement>,
 ) {
+  const { result, targetTime } = props;
+  const dialogRef = useRef<HTMLDialogElement>(null);
+
+  useImperativeHandle(ref, () => {
+    return {
+      openMyModal() {
+        dialogRef?.current?.showModal();
+      },
+    };
+  }, []);
+
   return (
-    <dialog ref={ref} className="result-modal">
+    <dialog ref={dialogRef} className="result-modal">
       <h2>You {result}</h2>
       <p>
         The target time was <strong>{targetTime}</strong> seconds.
