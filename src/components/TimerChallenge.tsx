@@ -19,7 +19,6 @@ const TimerChallenge: React.FC<Props> = ({ title, targetTime }) => {
 
   if (timeRemaining <= 0) {
     clearInterval(timerRef.current);
-    setTimeRemaining(targetTime);
     dialogRef?.current?.openMyModal();
   }
 
@@ -35,9 +34,18 @@ const TimerChallenge: React.FC<Props> = ({ title, targetTime }) => {
     clearInterval(timerRef.current);
   };
 
+  const handleResetTimer = () => {
+    setTimeRemaining(targetTime * 1000);
+  };
+
   return (
     <>
-      <ResultModal ref={dialogRef} result="lost" targetTime={targetTime} />
+      <ResultModal
+        ref={dialogRef}
+        onReset={handleResetTimer}
+        remainingTime={timeRemaining}
+        targetTime={targetTime}
+      />
 
       <section className="challenge">
         <h2>{title}</h2>
